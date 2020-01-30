@@ -20,7 +20,10 @@ static size_t _get_file_size(CFURLRef url);
 void properties_for_file(CFURLRef url, size_t* width, size_t* height, size_t* dpi, size_t* file_size)
 {
 	// Create the image source
-	*width = 0, *height = 0, *dpi = 0, *file_size = 0;
+    *width = 0;
+    *height = 0;
+    *dpi = 0;
+    *file_size = 0;
 	CGImageSourceRef img_src = CGImageSourceCreateWithURL(url, NULL);
 	if (NULL == img_src)
 		return;
@@ -71,7 +74,8 @@ size_t read_file(CFStringRef filepath, uint8_t** buffer)
 	fclose(f);
 	if (read_size != file_size)
 	{
-		free(*buffer), *buffer = NULL;
+        free(*buffer);
+        *buffer = NULL;
 		return 0;
 	}
 
